@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #191919;
+  color: white;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar-left .logo {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-center a,
+.navbar-right a {
+  margin-left: 1.2rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar-center a:hover,
+.navbar-right a:hover {
+  text-decoration: underline;
+}
+
+.user-greet {
+  margin-right: 0.8rem;
+  font-weight: 500;
+}

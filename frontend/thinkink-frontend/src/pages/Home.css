@@ -1,88 +1,87 @@
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* Reset and base */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fff;
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background-color: #fefcf9;
+  color: #191919;
 }
 
 /* Navbar */
 .navbar {
+  background-color: #fff;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1f2328;
-  padding: 1rem 2rem;
-  color: white;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-.logo {
-  font-size: 1.5rem;
+.navbar-left .logo {
+  font-size: 1.8rem;
   font-weight: bold;
+  font-family: 'Georgia', serif;
 }
 
-.nav-links a {
-  margin-left: 1.5rem;
+.navbar-center {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-center a {
   text-decoration: none;
-  color: white;
+  color: #191919;
   font-weight: 500;
 }
 
-/* Main Content */
-.content {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+.navbar-center a:hover {
+  text-decoration: underline;
 }
 
-.search-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2.5rem;
+.navbar-center .btn-dark {
+  background-color: #191919;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.search-box {
-  width: 60%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.navbar-right a {
+  margin-left: 1rem;
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-/* Blog Grid Layout */
-.blog-grid {
-  display: flex;
-  gap: 3rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
+/* Hero section */
+.hero-section {
+  max-width: 960px;
+  margin: 80px auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.blog-section,
-.recommended-section {
-  flex: 1;
-  min-width: 300px;
-}
-
-.blog-section h2,
-.recommended-section h2 {
-  font-size: 1.6rem;
+.hero-title {
+  font-size: 5rem;
+  font-weight: bold;
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-.blog-card {
-  background-color: #f5f5f5;
-  padding: 1rem 1.2rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: all 0.2s ease-in-out;
+.hero-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
-.blog-card:hover {
-  background-color: #eaeaea;
-  transform: translateY(-2px);
+.big-button {
+  font-size: 1.2rem;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
 }

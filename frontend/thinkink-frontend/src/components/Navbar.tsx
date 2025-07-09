@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './Navbar.css';
 
 interface Props {
   user: string | null;
@@ -16,30 +17,26 @@ const Navbar: React.FC<Props> = ({ user, setUser }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">ThinkInk</Link>
-        <div className="collapse navbar-collapse justify-content-end">
-          <ul className="navbar-nav">
-            {user ? (
-              <>
-                <li className="nav-item nav-link text-white">Hi, {user}</li>
-                <li className="nav-item">
-                  <button className="btn btn-outline-light ms-2" onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
+    <nav className="navbar shadow-sm">
+      <div className="navbar-left">
+        <Link className="logo" to="/">ThinkInk</Link>
+      </div>
+      <div className="navbar-center">
+        <Link to="/">Stories</Link>
+        <Link to="/write">Write</Link>
+      </div>
+      <div className="navbar-right">
+        {user ? (
+          <>
+            <span className="user-greet">Hi, {user}</span>
+            <button className="btn btn-dark ms-2" onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link className="nav-link" to="/login">Login</Link>
+            <Link className="nav-link ms-2" to="/register">Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );
