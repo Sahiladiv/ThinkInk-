@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-tc%)=o_$$68&bec8tnq3=r(*dvlm)71-(*as#5eh8i1-r8+3f5
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "thinkinkapi.onrender.com"
+    "thinkinkapi.onrender.com",
+    "127.0.0.1"
 ]
 
 
