@@ -11,7 +11,7 @@ const Register: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/register/', {
+      const response = await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
         username,
         email,
         password,
