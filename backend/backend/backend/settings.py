@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-tc%)=o_$$68&bec8tnq3=r(*dvlm)71-(*as#5eh8i1-r8+3f5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "https://thinkinkapi.onrender.com"
+]
 
 
 # Application definition
