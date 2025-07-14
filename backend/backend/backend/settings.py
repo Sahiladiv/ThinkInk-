@@ -22,13 +22,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+<<<<<<< HEAD
     'rest_framework.authtoken',
+=======
+    'rest_framework.authtoken',  # for token auth
+>>>>>>> 2b60ab203622be228a236f1bed01cf06a45e18cb
     'corsheaders',
     'accounts',
     'onboarding',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -40,6 +45,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    "https://think-ink-stories.vercel.app",  
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://think-ink-stories.vercel.app",
+]
 
 TEMPLATES = [
     {
