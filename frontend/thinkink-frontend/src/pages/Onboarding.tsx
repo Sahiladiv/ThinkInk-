@@ -1,73 +1,95 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const storyOptions = [
-  'adventure',
-  'romance',
-  'sci-fi',
-  'horror',
-  'mystery',
-  'fantasy',
-];
+const genres = ['Adventure', 'Romance', 'Sci-fi', 'Horror', 'Mystery', 'Fantasy'];
 
 const Onboarding: React.FC = () => {
-  const [selected, setSelected] = useState<string[]>([]);
-  const [message, setMessage] = useState<string | null>(null);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleToggle = (genre: string) => {
-    setSelected((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+  const toggleGenre = (value: string) => {
+    setSelectedGenres((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
     );
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      setError('Missing token. Please login again.');
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        '/api/onboarding/',
-        {
-          preferences: selected,
-          completed: true,
-        },
+      const preferences = selectedGenres.map((g) => g.toLowerCase());
+      const res = await axios.post(
+        'http://127.0.0.1:8000/api/onboarding/',
+        { preferences }, // ✅ MATCHES Django model
         {
           headers: {
-            Authorization: `Token ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      setMessage('Preferences saved successfully!');
-    } catch (error) {
-      console.error(error);
-      setMessage('Failed to save preferences.');
+
+      if (res.status === 200) {
+        navigate('/');
+      } else {
+        throw new Error('Unexpected response from server');
+      }
+    } catch (err: any) {
+      console.error('Onboarding submission failed:', err.response?.data || err.message);
+      setError('Failed to submit preferences. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-2">Onboarding</h2>
-      <p className="mb-4">Welcome! What type of stories do you like?</p>
-
-      <div className="mb-4 space-y-2">
-        {storyOptions.map((genre) => (
-          <label key={genre} className="block">
-            <input
-              type="checkbox"
-              checked={selected.includes(genre)}
-              onChange={() => handleToggle(genre)}
-              className="mr-2"
-            />
-            {genre.charAt(0).toUpperCase() + genre.slice(1)}
-          </label>
-        ))}
+    <div className="container py-5">
+      <div className="col-lg-8 mx-auto">
+        <h1 className="display-5 fw-bold mb-3">Onboarding</h1>
+        <p className="lead text-muted mb-4">Let’s personalize your ThinkInk experience.</p>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-5">
+            <h4 className="fw-semibold mb-3">What genres do you enjoy?</h4>
+            <div className="row">
+              {genres.map((genre) => (
+                <div className="col-6 col-md-4 mb-2" key={genre}>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id={`genre-${genre}`}
+                      checked={selectedGenres.includes(genre)}
+                      onChange={() => toggleGenre(genre)}
+                    />
+                    <label className="form-check-label" htmlFor={`genre-${genre}`}>
+                      {genre}
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {error && <div className="alert alert-danger">{error}</div>}
+          <button
+            type="submit"
+            className="btn btn-primary px-4 py-2"
+            disabled={loading || selectedGenres.length === 0}
+          >
+            {loading ? 'Submitting...' : 'Continue'}
+          </button>
+        </form>
       </div>
-
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Submit
-      </button>
-
-      {message && <p className="mt-4 text-sm">{message}</p>}
     </div>
   );
 };

@@ -4,7 +4,7 @@ from .models import Onboarding
 class OnboardingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Onboarding
-        fields = ['preferences', 'completed']
+        fields = ['preferences']
 
     def validate_preferences(self, value):
         allowed = {'adventure', 'romance', 'sci-fi', 'horror', 'mystery', 'fantasy'}

@@ -14,9 +14,11 @@
     "@mui/material": "^7.2.0",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
+    "framer-motion": "^12.23.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^5.4.2",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.3"
   },
   "devDependencies": {

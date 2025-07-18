@@ -1,20 +1,61 @@
-/* Make wrapper stretch to full screen */
-.home-wrapper {
-  width: 100vw;
-  height: 100vh;
-  background-color: #fffdf9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 4rem; /* To account for fixed navbar */
-  box-sizing: border-box;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #213547;
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
 }
 
-/* Content container centered inside */
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
+  color: #213547;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+
+Home.css
+.home-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  background: #fefcf9;
+  padding-top: 4rem;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+}
+
 .home-container {
   max-width: 1200px;
   width: 100%;
+  margin: 0 auto;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -22,37 +63,126 @@
   text-align: center;
 }
 
-/* Title styling */
+.hero-section {
+  padding: 3rem 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .hero-title {
-  font-size: 4rem;
-  font-weight: 700;
+  font-size: 3.5rem;
+  font-weight: 800;
   font-family: 'Georgia', serif;
   margin-bottom: 1.5rem;
 }
 
-/* Subtitle styling */
-.hero-subtitle {
-  font-size: 1.5rem;
-  font-family: 'Georgia', serif;
-  color: #333;
-  max-width: 900px;
-  margin-bottom: 2.5rem;
-  line-height: 1.8;
+.gradient-text {
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* CTA Button */
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #444;
+  line-height: 1.8;
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  font-family: 'Georgia', serif;
+}
+
 .big-button {
   padding: 1rem 2.5rem;
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: 600;
   border-radius: 999px;
   background-color: #000;
   color: #fff;
   border: none;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .big-button:hover {
   background-color: #222;
+  transform: translateY(-2px);
   cursor: pointer;
+}
+
+.features-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.features-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.feature-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.testimonials-section {
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+  text-align: center;
+  width: 100%;
+}
+
+.testimonials-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  max-width: 500px;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card span {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #222;
 }

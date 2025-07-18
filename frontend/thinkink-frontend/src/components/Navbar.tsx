@@ -12,29 +12,62 @@ const Navbar: React.FC<Props> = ({ user, setUser }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('username');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     setUser(null);
-    navigate('/login');
+    navigate('/');
   };
 
   return (
-    <nav className="navbar shadow-sm">
+    <nav className="navbar shadow-sm d-flex justify-content-between align-items-center px-4 py-2">
+      {/* Left: Logo */}
       <div className="navbar-left">
-        <Link className="logo" to="/">ThinkInk</Link>
+        <Link className="navbar-logo text-primary fw-bold fs-4" to="/">ThinkInk</Link>
       </div>
-      <div className="navbar-center">
-        <Link to="/">Stories</Link>
-        <Link to="/write">Write</Link>
+
+      {/* Center: Navigation Links */}
+      <div className="navbar-center d-flex gap-4">
+        <Link className="nav-link text-primary fw-semibold" to="/storylist">Stories</Link>
+        <Link className="nav-link text-primary fw-semibold" to="/write">Write</Link>
+        <div className="navbar-genre-dropdown">
+          <span className="nav-link text-primary fw-semibold genre-toggle">Genres</span>
+            <div className="genre-menu">
+                <Link to="/genre/fantasy">Fantasy</Link>
+                <Link to="/genre/scifi">Sci-Fi</Link>
+                <Link to="/genre/romance">Romance</Link>
+                <Link to="/genre/horror">Horror</Link>
+                <Link to="/genre/thriller">Thriller</Link>
+                <Link to="/genre/nonfiction">Non-Fiction</Link>
+                <Link to="/genre/mystery">Mystery</Link>
+                <Link to="/genre/youngadult">Young Adult</Link>
+            </div>
+        </div>
       </div>
-      <div className="navbar-right">
+
+
+      <div className="navbar-search">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search stories/authors"
+          aria-label="Search"
+        />
+      </div>
+
+
+
+
+      {/* Right: Auth Controls */}
+      <div className="navbar-right d-flex align-items-center">
         {user ? (
           <>
-            <span className="user-greet">Hi, {user}</span>
-            <button className="btn btn-dark ms-2" onClick={handleLogout}>Logout</button>
+            <span className="me-3 text-muted">Hi, {user}</span>
+            <button className="btn btn-dark" onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <>
-            <Link className="nav-link" to="/login">Login</Link>
-            <Link className="nav-link ms-2" to="/register">Register</Link>
+            <Link className="btn btn-outline-primary me-2" to="/login">Login</Link>
+            <Link className="btn btn-primary" to="/register">Register</Link>
           </>
         )}
       </div>

@@ -17,5 +17,5 @@ class OnboardingView(APIView):
         serializer = OnboardingSerializer(onboarding, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': 'Onboarding saved successfully'})
+            return Response({'message': 'Preferences saved'})
         return Response(serializer.errors, status=400)
