@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const genres = ['Adventure', 'Romance', 'Sci-fi', 'Horror', 'Mystery', 'Fantasy'];
 
@@ -31,8 +31,8 @@ const Onboarding: React.FC = () => {
     try {
       const preferences = selectedGenres.map((g) => g.toLowerCase());
       const res = await axios.post(
-        '${BASE_URL}/api/onboarding/',
-        { preferences }, // ✅ MATCHES Django model
+        `${BASE_URL}/api/onboarding/`,
+        { preferences }, 
         {
           headers: {
             'Content-Type': 'application/json',

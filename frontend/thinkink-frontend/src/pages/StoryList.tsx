@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 type Story = {
   id: number;
@@ -19,7 +19,7 @@ const StoryList: React.FC = () => {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const response = await fetch('${BASE_URL}/api/blogs/storylist');
+        const response = await fetch(`${BASE_URL}/api/blogs/storylist`);
         if (!response.ok) throw new Error('Failed to fetch stories');
         const data = await response.json();
         setStories(data);

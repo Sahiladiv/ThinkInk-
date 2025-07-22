@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface Props {
   setUser: (user: string) => void;
@@ -19,7 +19,7 @@ const Login: React.FC<Props> = ({ setUser }) => {
     setLoading(true);
 
     try {
-      const loginRes = await fetch('`${BASE_URL}/api/accounts/login/', {
+      const loginRes = await fetch(`${BASE_URL}/api/accounts/login/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './WriteBlog.css';
 import ImageCropperModal from './ImageCropperModal';
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const WriteBlog: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -46,7 +46,7 @@ const WriteBlog: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('${BASE_URL}/api/blogs/saveblog/', {
+      const response = await fetch(`${BASE_URL}/api/blogs/saveblog/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
