@@ -76,9 +76,16 @@ const StoryList: React.FC = () => {
                   </small>
                 </div>
 
-                <p className="card-text text-muted" style={{ flexGrow: 1 }}>
-                  {story.content.length > 120 ? story.content.slice(0, 120) + '…' : story.content}
-                </p>
+                <div
+                  className="card-text text-muted"
+                  style={{ flexGrow: 1, overflow: 'hidden', maxHeight: '6em' }}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      story.content.length > 120
+                        ? story.content.slice(0, 120) + '…'
+                        : story.content,
+                  }}
+                />
 
                 <div className="d-flex justify-content-between align-items-center mt-3">
                   <Link to={`/story/${story.id}`} className="btn btn-outline-dark">Read more</Link>
