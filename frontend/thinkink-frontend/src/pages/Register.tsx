@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ const Register: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/accounts/register/', {
+      const response = await axios.post('${BASE_URL}/api/accounts/register/', {
         username,
         email,
         password,

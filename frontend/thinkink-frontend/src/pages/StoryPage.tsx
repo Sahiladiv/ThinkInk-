@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import './StoryPage.css';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 type Story = {
   id: number;
@@ -22,7 +24,7 @@ const StoryPage: React.FC = () => {
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/blogs/story/${id}`);
+        const response = await fetch(`${BASE_URL}/api/blogs/story/${id}`);
         if (!response.ok) throw new Error('Failed to fetch story');
         const data = await response.json();
         setStory(data);
@@ -67,12 +69,11 @@ const StoryPage: React.FC = () => {
             <span style={{ color: 'crimson', fontWeight: '500' }}>&hearts; {story.likes}</span>
           </div>
 
-          <div className="story-body">
-            {story.content.trim().split('\n').map((para, index) =>
-              para.trim() ? <p key={index}>{para.trim()}</p> : <br key={index} />
-            )}
-          </div>
-        </div>
+        <div
+        className="story-body"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(story.content) }}
+        />
+                </div>
       )}
     </div>
   );
