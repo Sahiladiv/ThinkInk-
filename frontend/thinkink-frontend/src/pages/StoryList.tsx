@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type Story = {
   id: number;
@@ -64,7 +65,10 @@ const StoryList: React.FC = () => {
                 <h5 className="card-title">{story.title}</h5>
 
                 <div className="d-flex align-items-center mb-3">
-                  <div className="avatar bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style={{ width: '35px', height: '35px' }}>
+                  <div
+                    className="avatar bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                    style={{ width: '35px', height: '35px' }}
+                  >
                     {story.author[0].toUpperCase()}
                   </div>
                   <small className="text-muted">
@@ -77,7 +81,7 @@ const StoryList: React.FC = () => {
                 </p>
 
                 <div className="d-flex justify-content-between align-items-center mt-3">
-                  <a href={`/stories/${story.id}`} className="btn btn-outline-dark">Read more</a>
+                  <Link to={`/story/${story.id}`} className="btn btn-outline-dark">Read more</Link>
                   <div className="d-flex align-items-center">
                     <span style={{ color: 'crimson', fontSize: '1.2rem' }}>&hearts;</span>
                     <span className="ms-1 text-muted">{story.likes}</span>
@@ -86,7 +90,6 @@ const StoryList: React.FC = () => {
               </div>
             </div>
           </div>
-
         ))}
       </div>
     </div>

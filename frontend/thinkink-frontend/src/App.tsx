@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -8,6 +9,7 @@ import Register from './pages/Register';
 import Onboarding from './pages/Onboarding';
 import WriteBlog from './pages/WriteBlog';
 import StoryList from './pages/StoryList';
+import StoryPage from './pages/StoryPage';
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -28,6 +30,8 @@ function App() {
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/write" element={<WriteBlog />} />
           <Route path="/storylist" element={<StoryList />} />
+          <Route path="/story/:id" element={<StoryPage />} />
+          {/* Catch-all route at the end */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

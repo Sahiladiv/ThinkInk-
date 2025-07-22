@@ -1,5 +1,5 @@
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -31,3 +31,10 @@ class BlogListView(ListAPIView):
     serializer_class = BlogSerializer
     permission_classes = [AllowAny]
     queryset = Blog.objects.all().order_by('-created_at')
+
+
+class BlogDetailView(RetrieveAPIView):
+    serializer_class = BlogSerializer
+    permission_classes = [AllowAny]
+    queryset = Blog.objects.all()
+    lookup_field = 'id'

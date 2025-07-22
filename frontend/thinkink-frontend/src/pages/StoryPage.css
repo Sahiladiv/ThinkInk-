@@ -1,0 +1,40 @@
+.story-page {
+  padding: 2rem 5vw;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Georgia', serif;
+  background-color: #fffefc;
+  min-height: 100vh;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #0077cc;
+  cursor: pointer;
+}
+
+.story-content {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+.story-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.story-meta .dot {
+  margin: 0 0.5rem;
+}
+
+.story-body p {
+  line-height: 1.8;
+  font-size: 1.15rem;
+  margin-bottom: 1.25rem;
+}
