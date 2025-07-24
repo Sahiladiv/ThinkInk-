@@ -45,6 +45,7 @@ Home.css
   width: 100vw;
   min-height: 100vh;
   background: #fefcf9;
+  background-image: url('../public/assets/background.png')
   padding-top: 4rem;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
