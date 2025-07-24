@@ -7,3 +7,4 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()  # stores HTML content
     created_at = models.DateTimeField(auto_now_add=True)
+    genre_list = models.TextField(default=list)

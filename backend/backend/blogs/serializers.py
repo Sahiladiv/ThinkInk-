@@ -6,7 +6,7 @@ class BlogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['id', 'title', 'content', 'author', 'created_at']  # added 'author'
+        fields = ['id', 'title', 'content', 'author', 'created_at', 'genre_list']  # added 'author'
 
     def validate_title(self, value):
         if not value.strip():

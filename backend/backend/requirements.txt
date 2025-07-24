@@ -22,3 +22,6 @@ tokenizers>=0.19.1
 # Utility
 python-decouple>=3.8
 dotenv
+
+sentence-transformers
+bs4
