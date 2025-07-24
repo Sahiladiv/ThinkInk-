@@ -1,61 +1,13 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #213547;
-  background-color: #ffffff;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #ffffff;
-  color: #213547;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
-}
-
-
-Home.css
 .home-wrapper {
+  position: relative;
   width: 100vw;
-  min-height: 100vh;
-  background: #fefcf9;
-  background-image: red url('/assets/background.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  padding-top: 4rem;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  height: 100vh;
+  background: url('/assets/background.png') center center / cover no-repeat;
   display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
-
 
 .home-container {
   max-width: 1200px;
@@ -83,14 +35,29 @@ Home.css
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  background: linear-gradient(90deg, #00f260, #0575e6);
+  background-size: 200% auto;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  animation: shine 10s linear infinite;
+  position: relative;
 }
+
+@keyframes shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
 
 .hero-subtitle {
   font-size: 1.25rem;
-  color: #444;
+  color: floralwhite;
   line-height: 1.8;
   max-width: 900px;
   margin: 0 auto 2.5rem;
@@ -146,48 +113,10 @@ Home.css
   transform: translateY(-5px);
 }
 
-.testimonials-section {
-  padding: 4rem 2rem;
-  background: #f9f9f9;
-  text-align: center;
-  width: 100%;
-}
 
-.testimonials-section h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  font-weight: 700;
-}
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  justify-items: center;
-  padding: 0 1rem;
-  width: 100%;
-}
-
-.testimonial-card {
-  background: #ffffff;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  max-width: 500px;
-  font-style: italic;
-  font-size: 1.1rem;
-  color: #555;
-  transition: all 0.3s ease;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.testimonial-card span {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-  color: #222;
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }

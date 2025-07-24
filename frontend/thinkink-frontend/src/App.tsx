@@ -22,9 +22,13 @@ function App() {
   return (
     <>
       <Navbar user={user} setUser={setUser} />
+      <Routes>
+      <Route path="/" element={<Home />} />
+
+      </Routes>
+
       <div className="container mt-4">
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/onboarding" element={<Onboarding />} />
