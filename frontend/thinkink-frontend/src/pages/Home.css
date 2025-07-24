@@ -45,13 +45,17 @@ Home.css
   width: 100vw;
   min-height: 100vh;
   background: #fefcf9;
-  background-image: url('../public/assets/background.png')
+  background-image: url('/assets/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   padding-top: 4rem;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
 }
+
 
 .home-container {
   max-width: 1200px;
