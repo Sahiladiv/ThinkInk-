@@ -45,7 +45,7 @@ Home.css
   width: 100vw;
   min-height: 100vh;
   background: #fefcf9;
-  background-image: url('/assets/background.png');
+  background-image: red url('/assets/background.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
