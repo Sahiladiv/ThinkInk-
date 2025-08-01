@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import DOMPurify from 'dompurify'; // npm i dompurify @types/dompurify
+import DOMPurify from 'dompurify';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 type Story = {
   id: number;
   title: string;
-  content: string;   // HTML coming from backend
-  author: string;
-  created_at: string;
-  likes: number;
+  content: string;
+  author?: string;
+  created_at?: string;
+  likes_count ?: number;
 };
 
 const toPlainText = (html: string): string => {
@@ -27,8 +27,12 @@ const estimateReadTime = (html: string): string => {
   return `${minutes} min read`;
 };
 
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const formatDate = (iso: string | undefined) =>
+  iso ? new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }) : '';
 
 const StoryList: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);
@@ -38,10 +42,18 @@ const StoryList: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/blogs/storylist`);
+        const res = await fetch(`${BASE_URL}api/blogs/storylist`);
         if (!res.ok) throw new Error('Failed to fetch stories');
+
         const data = await res.json();
-        setStories(data);
+        console.log('Fetched data:', data);
+
+        if (Array.isArray(data.blogs)) {
+          setStories(data.blogs);
+        } else {
+          throw new Error('Unexpected response format: blogs not found');
+        }
+
       } catch (e: any) {
         setError(e.message || 'Something went wrong');
       } finally {
@@ -52,46 +64,37 @@ const StoryList: React.FC = () => {
 
   return (
     <div className="container py-5">
-      <h1 className="mb-5 fw-bold display-5 text-center">Recent Stories</h1>
-
       {loading && <p className="text-center">Loading...</p>}
       {error && <p className="text-danger text-center">{error}</p>}
       {!loading && !error && stories.length === 0 && (
         <div className="text-center text-muted">No stories found.</div>
       )}
 
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div className="row row-cols-1 row-cols-md-2 g-4">
         {stories.map((story) => {
           const plain = toPlainText(story.content);
           return (
             <div key={story.id} className="col">
-              <div className="card h-100 shadow-sm border-0">
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{story.title}</h5>
-
-                  <div className="d-flex align-items-center mb-3">
-                    <div
-                      className="avatar bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
-                      style={{ width: '35px', height: '35px' }}
-                    >
-                      {story.author[0].toUpperCase()}
-                    </div>
-                    <small className="text-muted">
-                      <strong>{story.author}</strong> • {formatDate(story.created_at)} • {estimateReadTime(story.content)}
-                    </small>
+              <div className="bg-white shadow-sm rounded p-4 h-100">
+                <h5 className="fw-bold mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                  {story.title}
+                </h5>
+                <p className="text-muted mb-3" style={{ fontSize: '0.95rem' }}>
+                  {truncate(plain, 140)}
+                </p>
+                <div className="d-flex justify-content-between align-items-center" style={{ fontSize: '0.85rem' }}>
+                  <div className="text-muted">
+                    <strong>{story.author || 'Unknown'}</strong> • {formatDate(story.created_at)} • {estimateReadTime(story.content)}
                   </div>
-
-                  <p className="card-text text-muted" style={{ flexGrow: 1 }}>
-                    {truncate(plain, 120)}
-                  </p>
-
-                  <div className="d-flex justify-content-between align-items-center mt-3">
-                    <Link to={`/story/${story.id}`} className="btn btn-outline-dark">Read more</Link>
-                    <div className="d-flex align-items-center">
-                      <span style={{ color: 'crimson', fontSize: '1.2rem' }}>&hearts;</span>
-                      <span className="ms-1 text-muted">{story.likes}</span>
-                    </div>
+                  <div className="d-flex align-items-center">
+                    <span style={{ color: 'crimson' }}>&hearts;</span>
+                    <span className="ms-1 text-muted">{story.likes_count  ?? 0}</span>
                   </div>
+                </div>
+                <div className="mt-3">
+                  <Link to={`/story/${story.id}`} className="btn btn-sm btn-outline-dark">
+                    Read more
+                  </Link>
                 </div>
               </div>
             </div>

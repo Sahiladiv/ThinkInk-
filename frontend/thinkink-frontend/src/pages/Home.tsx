@@ -23,8 +23,8 @@ const Home: React.FC = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              Discover insightful stories, share your unique voice, and explore ideas that matter. <br />
-              Whether you're here to read or write, ThinkInk is your creative home.
+              Find the stories you always wanted to read. <br />
+              Write the stories you always wanted to write.
             </motion.p>
 
           </section>

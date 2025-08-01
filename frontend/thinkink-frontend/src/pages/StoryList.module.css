@@ -1,0 +1,20 @@
+body {
+  background-color: #fff;
+  color: #242424;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+.card-hover:hover {
+  background-color: #fafafa;
+  transition: background-color 0.2s ease;
+}
+
+.btn-outline-dark {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+}

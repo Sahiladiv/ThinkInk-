@@ -1,6 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+// WriteBlog.tsx
+import React, { useState, useRef } from 'react';
 import './WriteBlog.css';
+import ToolbarSidebar from './ToolbarSidebar';
 import ImageCropperModal from './ImageCropperModal';
+import leftAlignIcon from './assets/left-align.svg';
+import centerAlignIcon from './assets/center-align.svg';
+import rightAlignIcon from './assets/right-align.svg';
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const WriteBlog: React.FC = () => {
@@ -11,27 +17,12 @@ const WriteBlog: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const editorRef = useRef<HTMLDivElement>(null);
-  const toolbarRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const toolbar = toolbarRef.current;
-      if (!toolbar) return;
-
-      const rect = toolbar.getBoundingClientRect();
-      const isSticky = rect.top <= 0;
-      toolbar.classList.toggle('floating-toolbar', isSticky);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const content = editorRef.current?.innerHTML || '';
+
     if (!title.trim() || !content.trim()) {
       alert('Title and content cannot be empty.');
       return;
@@ -55,15 +46,8 @@ const WriteBlog: React.FC = () => {
         body: JSON.stringify({ title, content }),
       });
 
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        throw new Error('Server did not return valid JSON.');
-      }
-
+      const data = await response.json();
       if (!response.ok) {
-        console.error('Backend error:', data);
         alert(`Failed to submit blog: ${data.detail || JSON.stringify(data)}`);
         return;
       }
@@ -72,10 +56,26 @@ const WriteBlog: React.FC = () => {
       setTitle('');
       if (editorRef.current) editorRef.current.innerHTML = '';
     } catch (error) {
-      console.error('Request error:', error);
       alert('An error occurred while publishing the blog.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const previewBlog = () => {
+    const content = editorRef.current?.innerHTML || '';
+    if (!title.trim() || !content.trim()) {
+      alert('Title and content cannot be empty for preview.');
+      return;
+    }
+    const previewWindow = window.open('', '_blank');
+    if (previewWindow) {
+      previewWindow.document.write(`
+        <html><head><title>${title}</title>
+          <style>body { font-family: ${fontFamily}; font-size: ${fontSize}px; padding: 2rem; }</style>
+        </head><body><h1>${title}</h1>${content}</body></html>
+      `);
+      previewWindow.document.close();
     }
   };
 
@@ -92,9 +92,7 @@ const WriteBlog: React.FC = () => {
     if (file && /^image\//.test(file.type)) {
       const reader = new FileReader();
       reader.onload = () => {
-        if (typeof reader.result === 'string') {
-          setCropSrc(reader.result);
-        }
+        if (typeof reader.result === 'string') setCropSrc(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -119,109 +117,54 @@ const WriteBlog: React.FC = () => {
   };
 
   return (
-    <div className="container-fluid px-5 mt-5">
-      <div className="row justify-content-center">
-        <div className="col-lg-10">
-          <h2 className="mb-4 fancy-heading text-center">Write Your Own Story</h2>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleImageUpload}
-            />
+    <div className="write-blog-layout">
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleImageUpload}
+      />
 
-            <input
-              className="form-control form-control-lg blog-title mb-3"
-              placeholder="Enter Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              disabled={isSubmitting}
-            />
+      <ToolbarSidebar
+        formatText={formatText}
+        applyHeading={applyHeading}
+        insertSection={insertSection}
+        insertImage={insertImage}
+      />
 
-            <div
-              className="d-flex flex-wrap align-items-center mb-3 gap-2 toolbar floating-toolbar bg-white justify-content-center"
-              ref={toolbarRef}
-            >
-              <div className="d-flex align-items-center">
-                <label className="me-2">Font Size:</label>
-                <select
-                  className="form-select"
-                  style={{ width: '80px' }}
-                  value={fontSize}
-                  onChange={(e) => setFontSize(e.target.value)}
-                >
-                  <option value="14">14</option>
-                  <option value="16">16</option>
-                  <option value="18">18</option>
-                  <option value="20">20</option>
-                  <option value="24">24</option>
-                </select>
-              </div>
-              <div className="d-flex align-items-center">
-                <label className="me-2">Font Family:</label>
-                <select
-                  className="form-select"
-                  style={{ width: '150px' }}
-                  value={fontFamily}
-                  onChange={(e) => setFontFamily(e.target.value)}
-                >
-                  <option value="Arial">Arial</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Times New Roman">Times New Roman</option>
-                  <option value="Courier New">Courier New</option>
-                  <option value="Verdana">Verdana</option>
-                </select>
-              </div>
-
-              <div className="btn-group ms-2 flex-wrap" role="group">
-                <button type="button" className="btn btn-outline-secondary" onClick={() => formatText('bold')}><b>B</b></button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => formatText('italic')}><i>I</i></button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => formatText('underline')}><u>U</u></button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => formatText('foreColor', 'red')} style={{ color: 'red' }}>A</button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => formatText('foreColor', 'blue')} style={{ color: 'blue' }}>A</button>
-                <button type="button" className="btn btn-outline-secondary" onClick={insertImage}>🖼️</button>
-                <button type="button" className="btn btn-outline-secondary" onClick={insertSection}>📑 Section</button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => applyHeading('H1')}>H1</button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => applyHeading('H2')}>H2</button>
-                <button type="button" className="btn btn-outline-secondary" onClick={() => applyHeading('H3')}>H3</button>
-                <button type="button" className="btn btn-outline-secondary" title="Align Left" onClick={() => formatText('justifyLeft')}>⬅️</button>
-                <button type="button" className="btn btn-outline-secondary" title="Align Center" onClick={() => formatText('justifyCenter')}>↔️</button>
-                <button type="button" className="btn btn-outline-secondary" title="Align Right" onClick={() => formatText('justifyRight')}>➡️</button>
-                <button type="button" className="btn btn-outline-secondary" title="Justify" onClick={() => formatText('justifyFull')}>📏</button>
-                <button type="button" className="btn btn-outline-secondary" title="Bullet List" onClick={() => formatText('insertUnorderedList')}>• List</button>
-                <button type="button" className="btn btn-outline-secondary" title="Numbered List" onClick={() => formatText('insertOrderedList')}>1. List</button>
-              </div>
-            </div>
-
-            <div
-              ref={editorRef}
-              contentEditable
-              className="form-control blog-content mb-3"
-              style={{
-                fontSize: `${fontSize}px`,
-                fontFamily: fontFamily,
-                minHeight: '500px',
-              }}
-            ></div>
-
-            <div className="text-center">
-              <button className="btn btn-success px-5 py-2" type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Publishing...' : 'Publish'}
-              </button>
-            </div>
-          </form>
-
-          {cropSrc && (
-            <ImageCropperModal
-              imageSrc={cropSrc}
-              onClose={() => setCropSrc(null)}
-              onCropComplete={handleCropComplete}
-            />
-          )}
+      <div className="write-blog-main">
+        <div className="d-flex justify-content-between mb-2">
+          <input
+            className="form-control blog-title me-3"
+            placeholder="Enter Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            disabled={isSubmitting}
+          />
+          <div className="d-flex gap-2">
+            <button className="btn btn-outline-primary" onClick={previewBlog} disabled={isSubmitting}>Preview</button>
+            <button className="btn btn-success" type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting ? 'Publishing...' : 'Publish'}
+            </button>
+          </div>
         </div>
+
+        <div
+          ref={editorRef}
+          contentEditable
+          className="form-control blog-content"
+          style={{ fontSize: `${fontSize}px`, fontFamily }}
+        ></div>
       </div>
+
+      {cropSrc && (
+        <ImageCropperModal
+          imageSrc={cropSrc}
+          onClose={() => setCropSrc(null)}
+          onCropComplete={handleCropComplete}
+        />
+      )}
     </div>
   );
 };

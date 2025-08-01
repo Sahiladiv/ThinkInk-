@@ -1,13 +1,40 @@
-.write-blog {
-  max-width: 800px;
-  background: #ffffff;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+.write-blog-layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.sidebar-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 180px;
+}
+
+.sidebar-toolbar button,
+.sidebar-toolbar select {
+  padding: 0.5rem;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.write-blog-main {
+  flex-grow: 1;
+  background: #fff;
+  padding: 1.5rem;
   border-radius: 12px;
-  padding: 30px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
 .blog-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   border: none;
   border-bottom: 2px solid #ccc;
@@ -15,26 +42,10 @@
 }
 
 .blog-content {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  min-height: 500px;
+  padding: 1rem;
   border: none;
+  outline: none;
   border-left: 4px solid #28a745;
-  padding-left: 16px;
-}
-
-.fancy-heading {
-  font-family: 'Georgia', serif;
-  font-weight: bold;
-  font-size: 2.5rem;
-  text-align: center;
-  color: #343a40;
-}
-
-.floating-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: white;
-  padding: 10px 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  line-height: 1.6;
 }

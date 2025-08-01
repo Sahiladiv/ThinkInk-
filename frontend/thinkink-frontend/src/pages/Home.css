@@ -2,7 +2,6 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url('/assets/background.png') center center / cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +34,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #00f260, #0575e6);
+  background: linear-gradient(black);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
@@ -57,7 +56,7 @@
 
 .hero-subtitle {
   font-size: 1.25rem;
-  color: floralwhite;
+  color: black;
   line-height: 1.8;
   max-width: 900px;
   margin: 0 auto 2.5rem;
@@ -118,4 +117,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
+  background: url('/assets/background.png') center center / cover no-repeat;
+  background-attachment: fixed; /* Optional: Keeps background fixed during scroll */
 }

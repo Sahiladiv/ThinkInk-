@@ -10,6 +10,7 @@ import Onboarding from './pages/Onboarding';
 import WriteBlog from './pages/WriteBlog';
 import StoryList from './pages/StoryList';
 import StoryPage from './pages/StoryPage';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   const [user, setUser] = useState<string | null>(null);
@@ -35,6 +36,8 @@ function App() {
           <Route path="/write" element={<WriteBlog />} />
           <Route path="/storylist" element={<StoryList />} />
           <Route path="/story/:id" element={<StoryPage />} />
+          <Route path="/search" element={<SearchPage />} />
+
           {/* Catch-all route at the end */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

@@ -124,7 +124,7 @@
 }
 
 .nav-link:hover {
-  color: #6366F1;
+  color: black;
 }
 
 
@@ -160,7 +160,7 @@
 }
 
 .genre-toggle:hover {
-  color: #4338ca; /* Darker indigo */
+  color: black; /* Darker indigo */
 }
 
 .genre-menu {

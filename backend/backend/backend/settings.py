@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'accounts',
     'blogs',
     'onboarding',
+    'recommendation',
+    'search',
 ]
 
 MIDDLEWARE = [

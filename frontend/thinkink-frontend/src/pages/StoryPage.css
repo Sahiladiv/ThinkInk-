@@ -38,3 +38,20 @@
   font-size: 1.15rem;
   margin-bottom: 1.25rem;
 }
+
+
+.like-btn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like-btn:hover {
+  background-color: darkred;
+}
